@@ -1,7 +1,7 @@
 import React from "react";
 import AnswerTile from "./answerTile";
 
-export default function JeopardyBoard({ questions }) {
+export default function JeopardyBoard({ questions, adjustScore }) {
   console.log("Jeopardy Board Questions: ", questions);
   return (
     <div className="grid grid-cols-6 gap-4 p-4">
@@ -30,6 +30,7 @@ export default function JeopardyBoard({ questions }) {
                   ) : (
                     <AnswerTile
                       questionObject={questions[colIndex][rowIndex - 1]}
+                      adjustScore={adjustScore}
                     ></AnswerTile>
                   )}
                 </div>

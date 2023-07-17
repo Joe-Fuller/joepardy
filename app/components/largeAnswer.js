@@ -1,13 +1,18 @@
 import { useState } from "react";
 
-export default function LargeAnswer({ answer, question }) {
+export default function LargeAnswer({
+  answer,
+  question,
+  clue_value,
+  adjustScore,
+}) {
   const [guess, setGuess] = useState("");
 
   const checkGuess = () => {
     console.log(guess);
     console.log(question);
     if (guess === question) {
-      console.log("CORRRRRRECT!!");
+      adjustScore(clue_value);
     }
   };
 

@@ -1,4 +1,5 @@
 import React from "react";
+import AnswerTile from "./answerTile";
 
 export default function JeopardyBoard({ questions }) {
   console.log("Jeopardy Board Questions: ", questions);
@@ -22,11 +23,15 @@ export default function JeopardyBoard({ questions }) {
               return (
                 <div
                   className="w-40 h-24 bg-blue-500 text-white text-center flex items-center justify-center"
-                  key={colIndex}
+                  key={String(colIndex) + rowIndex}
                 >
-                  {rowIndex === 0
-                    ? questions[colIndex][0].category
-                    : questions[colIndex][rowIndex - 1].clue_value}
+                  {rowIndex === 0 ? (
+                    questions[colIndex][0].category
+                  ) : (
+                    <AnswerTile
+                      questionObject={questions[colIndex][rowIndex - 1]}
+                    ></AnswerTile>
+                  )}
                 </div>
               );
             }

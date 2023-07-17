@@ -11,7 +11,7 @@ export default function LargeAnswer({
   const checkGuess = () => {
     console.log(guess);
     console.log(question);
-    if (guess === question) {
+    if (guess.toLowerCase() === question.toLowerCase()) {
       adjustScore(clue_value);
     }
   };

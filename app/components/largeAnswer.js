@@ -5,6 +5,7 @@ export default function LargeAnswer({
   question,
   clue_value,
   adjustScore,
+  hideAnswer,
 }) {
   const [guess, setGuess] = useState("");
 
@@ -14,6 +15,7 @@ export default function LargeAnswer({
     if (guess.toLowerCase() === question.toLowerCase()) {
       adjustScore(clue_value);
     }
+    hideAnswer();
   };
 
   const handleKeyDown = (event) => {

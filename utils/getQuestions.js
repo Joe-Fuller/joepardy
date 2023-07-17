@@ -1,32 +1,30 @@
 const getQuestions = async () => {
-  try {
-    const response = await fetch("/data/combined_season1-38.tsv");
-    if (!response.ok) {
-      throw new Error("Failed to fetch the data");
+  const jeopardyDataFile = "/data/jeopardy_data.json";
+
+  const response = await fetch(jeopardyDataFile);
+  const jsonData = await response.json();
+  const categories = Object.keys(jsonData);
+
+  const selectedCategories = [];
+  const selectedQuestions = [];
+  while (selectedQuestions.length < 5) {
+    const category = selectRandom(categories);
+
+    if (!selectedCategories.includes(category)) {
+      selectedCategories.push(category);
+      const sets = jsonData[category];
+
+      const selectedSet = selectRandom(sets);
+      selectedQuestions.push(selectedSet);
     }
-    const tsvData = await response.text();
-    console.log(parseTsvData(tsvData));
-    return parseTsvData(tsvData);
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return [];
   }
+
+  console.log(selectedQuestions);
+  return selectedQuestions;
 };
 
-const parseTsvData = (tsvData) => {
-  const rows = tsvData.trim().split("\n");
-  const headers = rows.shift().split("\t");
-
-  const questions = rows.map((row) => {
-    const values = row.split("\t");
-    const questionObject = {};
-    headers.forEach((header, index) => {
-      questionObject[header] = values[index];
-    });
-    return questionObject;
-  });
-
-  return questions;
+const selectRandom = (array) => {
+  return array[Math.floor(Math.random() * array.length)];
 };
 
 export default getQuestions;

@@ -2,13 +2,19 @@
 
 import getQuestions from "@/utils/getQuestions";
 import JeopardyBoard from "./components/jeopardyBoard";
+import { useState, useEffect } from "react";
 
 export default function Home() {
-  getQuestions();
+  const [questions, setQuestions] = useState([]);
+  useEffect(() => {
+    getQuestions().then((data) => {
+      setQuestions(data);
+    });
+  }, []);
 
   return (
     <main>
-      <JeopardyBoard></JeopardyBoard>
+      <JeopardyBoard questions={questions}></JeopardyBoard>
     </main>
   );
 }

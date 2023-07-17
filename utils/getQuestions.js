@@ -7,7 +7,7 @@ const getQuestions = async () => {
 
   const selectedCategories = [];
   const selectedQuestions = [];
-  while (selectedQuestions.length < 5) {
+  while (selectedQuestions.length < 6) {
     const category = selectRandom(categories);
 
     if (!selectedCategories.includes(category)) {
@@ -19,7 +19,7 @@ const getQuestions = async () => {
     }
   }
 
-  console.log(selectedQuestions);
+  console.log("Selected Questions: ", selectedQuestions);
   return selectedQuestions;
 };
 

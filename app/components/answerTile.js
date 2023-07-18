@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LargeAnswer from "./largeAnswer";
 
-export default function AnswerTile({ questionObject, adjustScore }) {
+export default function AnswerTile({
+  questionObject,
+  adjustScore,
+  incrementQuestionsAnswered,
+}) {
   const [showAnswer, setShowAnswer] = useState(false);
   const [questionAnswered, setQuestionAnswered] = useState(false);
 
@@ -9,6 +13,10 @@ export default function AnswerTile({ questionObject, adjustScore }) {
     setQuestionAnswered(true);
     setShowAnswer(false);
   };
+
+  useEffect(() => {
+    setQuestionAnswered(false);
+  }, [questionObject]);
 
   return (
     <div
@@ -26,6 +34,7 @@ export default function AnswerTile({ questionObject, adjustScore }) {
           clue_value={questionObject.clue_value}
           adjustScore={adjustScore}
           hideAnswer={hideAnswer}
+          incrementQuestionsAnswered={incrementQuestionsAnswered}
         ></LargeAnswer>
       ) : questionAnswered ? (
         ""

@@ -6,6 +6,7 @@ export default function LargeAnswer({
   clue_value,
   adjustScore,
   hideAnswer,
+  incrementQuestionsAnswered,
 }) {
   const [guess, setGuess] = useState("");
 
@@ -17,6 +18,7 @@ export default function LargeAnswer({
     } else {
       adjustScore(-clue_value);
     }
+    incrementQuestionsAnswered(1);
     hideAnswer();
   };
 

@@ -14,6 +14,8 @@ export default function LargeAnswer({
     console.log(question);
     if (guess.toLowerCase() === question.toLowerCase()) {
       adjustScore(clue_value);
+    } else {
+      adjustScore(-clue_value);
     }
     hideAnswer();
   };

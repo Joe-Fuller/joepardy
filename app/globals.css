@@ -25,3 +25,10 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+@font-face {
+  font-family: "Jeopardy";
+  src: url("/fonts/swiss_911_ultra_compressed_bt.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}

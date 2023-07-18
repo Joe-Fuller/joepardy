@@ -19,6 +19,9 @@ module.exports = {
         yellow: "#d7a04b",
       },
     },
+    fontFamily: {
+      jeopardy: ["Jeopardy", "sans-serif"],
+    },
   },
   plugins: [],
 };

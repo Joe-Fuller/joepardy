@@ -31,7 +31,7 @@ export default function Home() {
   };
 
   return (
-    <main>
+    <main className="font-jeopardy">
       <JeopardyBoard
         questions={questions}
         adjustScore={adjustScore}

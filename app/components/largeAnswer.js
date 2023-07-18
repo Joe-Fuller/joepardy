@@ -10,16 +10,14 @@ export default function LargeAnswer({
 }) {
   const [guess, setGuess] = useState("");
 
-  const checkGuess = () => {
-    console.log(guess);
+  const checkGuess = (guessToCheck) => {
+    console.log(guessToCheck);
     console.log(question);
-    if (guess.toLowerCase() === question.toLowerCase()) {
+    if (guessToCheck.toLowerCase().trim() === question.toLowerCase().trim()) {
       adjustScore(clue_value);
-    } else {
-      adjustScore(-clue_value);
+      incrementQuestionsAnswered(1);
+      hideAnswer();
     }
-    incrementQuestionsAnswered(1);
-    hideAnswer();
   };
 
   const handleKeyDown = (event) => {
@@ -38,7 +36,10 @@ export default function LargeAnswer({
         type="text"
         placeholder="Guess"
         value={guess}
-        onChange={(e) => setGuess(e.target.value)}
+        onChange={(e) => {
+          setGuess(e.target.value);
+          checkGuess(e.target.value);
+        }}
         onKeyDown={handleKeyDown}
         autoFocus
       />

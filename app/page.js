@@ -38,7 +38,7 @@ export default function Home() {
         incrementQuestionsAnswered={incrementQuestionsAnswered}
       ></JeopardyBoard>
 
-      <p className="mx-20 my-20 text-3xl">Score: {score}</p>
+      <p className="mx-20 my-20 text-5xl">Score: {score}</p>
     </main>
   );
 }

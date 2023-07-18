@@ -26,7 +26,7 @@ export default function JeopardyBoard({
               // Otherwise, check if it's the first row (category) or other rows (clue_value)
               return (
                 <div
-                  className="w-40 h-24 bg-jeopardy-blue text-jeopardy-yellow text-center flex items-center justify-center"
+                  className="w-40 h-24 bg-jeopardy-blue text-jeopardy-yellow text-center flex items-center justify-center text-3xl p-4"
                   key={String(colIndex) + rowIndex}
                 >
                   {rowIndex === 0 ? (

@@ -20,7 +20,7 @@ export default function AnswerTile({
 
   return (
     <div
-      className="w-40 h-24 bg-jeopardy-blue text-white text-center text-4xl flex items-center justify-center"
+      className="w-40 h-24 bg-jeopardy-blue text-white text-center text-5xl flex items-center justify-center"
       onClick={() => {
         if (!questionAnswered) {
           setShowAnswer(true);

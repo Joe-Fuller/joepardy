@@ -16,7 +16,7 @@ export default function JeopardyBoard({
               // If questions is empty, return a placeholder or loading state
               return (
                 <div
-                  className="w-40 h-24 bg-jeopardy-blue text-jeopardy-yellow flex items-center justify-center"
+                  className="w-40 h-24 bg-jeopardy-blue text-jeopardy-yellow flex items-center justify-center text-3xl"
                   key={rowIndex}
                 >
                   Loading...

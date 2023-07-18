@@ -5,24 +5,24 @@ export default function LargeAnswer({
   question,
   clue_value,
   adjustScore,
+  showAnswer,
   hideAnswer,
   incrementQuestionsAnswered,
 }) {
   const [guess, setGuess] = useState("");
   const [timeRemaining, setTimeRemaining] = useState(15);
   const [timerActive, setTimerActive] = useState(true);
-  const [secondTimeRemaining, setSecondTimeRemaining] = useState(5);
-  const [secondTimerActive, setSecondTimerActive] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    startTimer();
-  }, []);
-
-  useEffect(() => {
-    if (!timerActive && !secondTimerActive) {
-      startSecondTimer();
+    if (isVisible) {
+      startTimer();
     }
-  }, [timerActive, timeRemaining, secondTimerActive]);
+  }, [isVisible]);
+
+  useEffect(() => {
+    setIsVisible(showAnswer);
+  }, [showAnswer]);
 
   const startTimer = () => {
     setTimerActive(true);
@@ -40,26 +40,6 @@ export default function LargeAnswer({
 
   const handleTimeOut = () => {
     adjustScore(-clue_value);
-    startSecondTimer();
-  };
-
-  const startSecondTimer = () => {
-    setSecondTimerActive(true);
-
-    const secondTimerId = setInterval(() => {
-      setSecondTimeRemaining((prevTimeRemaining) => prevTimeRemaining - 1);
-    }, 1000);
-
-    setTimeout(() => {
-      clearInterval(secondTimerId);
-      setSecondTimerActive(false);
-      handleSecondTimeOut();
-    }, 5000);
-  };
-
-  const handleSecondTimeOut = () => {
-    incrementQuestionsAnswered(1);
-    hideAnswer();
   };
 
   const checkGuess = (guessToCheck) => {
@@ -73,17 +53,31 @@ export default function LargeAnswer({
     }
   };
 
+  const dismissQuestion = () => {
+    hideAnswer();
+    setIsVisible(false);
+  };
+
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       checkGuess();
     }
   };
 
-  return (
+  return isVisible ? (
     <div className="fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center">
-      <div className="bg-jeopardy-blue w-4/5 h-3/5 p-10 flex flex-col items-center justify-center text-7xl">
-        {timerActive ? answer : question}
-      </div>
+      {timerActive ? (
+        <div className="bg-jeopardy-blue w-4/5 h-3/5 p-10 flex flex-col items-center justify-center text-7xl">
+          {answer}
+        </div>
+      ) : (
+        <div
+          className="bg-jeopardy-blue w-4/5 h-3/5 p-10 flex flex-col items-center justify-center text-7xl"
+          onClick={dismissQuestion}
+        >
+          {question}
+        </div>
+      )}
       <input
         className="mt-4 px-4 py-2 rounded-md border border-gray-400 focus:outline-none text-black"
         type="text"
@@ -98,8 +92,8 @@ export default function LargeAnswer({
       />
 
       <p className="fixed bottom-32 right-20">
-        {timerActive ? timeRemaining : secondTimeRemaining}
+        {timerActive ? timeRemaining : ""}
       </p>
     </div>
-  );
+  ) : null;
 }

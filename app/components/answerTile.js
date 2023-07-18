@@ -30,20 +30,16 @@ export default function AnswerTile({
         }
       }}
     >
-      {showAnswer ? (
-        <LargeAnswer
-          answer={questionObject.answer}
-          question={questionObject.question}
-          clue_value={value}
-          adjustScore={adjustScore}
-          hideAnswer={hideAnswer}
-          incrementQuestionsAnswered={incrementQuestionsAnswered}
-        ></LargeAnswer>
-      ) : questionAnswered ? (
-        ""
-      ) : (
-        "$" + value
-      )}
+      <LargeAnswer
+        answer={questionObject.answer}
+        question={questionObject.question}
+        clue_value={value}
+        adjustScore={adjustScore}
+        showAnswer={showAnswer}
+        hideAnswer={hideAnswer}
+        incrementQuestionsAnswered={incrementQuestionsAnswered}
+      ></LargeAnswer>
+      {questionAnswered ? "" : "$" + value}
     </div>
   );
 }

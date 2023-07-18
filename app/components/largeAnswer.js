@@ -16,10 +16,6 @@ export default function LargeAnswer({
     startTimer();
   }, []);
 
-  useEffect(() => {
-    setTimeRemaining(15);
-  }, [timerActive]);
-
   const startTimer = () => {
     setTimerActive(true);
 
@@ -35,13 +31,14 @@ export default function LargeAnswer({
   };
 
   const handleTimeOut = () => {
-    console.log("TIMEOUT");
+    adjustScore(-clue_value);
   };
 
   const checkGuess = (guessToCheck) => {
-    console.log(guessToCheck);
-    console.log(question);
-    if (guessToCheck.toLowerCase().trim() === question.toLowerCase().trim()) {
+    if (
+      guessToCheck.toLowerCase().trim() === question.toLowerCase().trim() &&
+      timerActive
+    ) {
       adjustScore(clue_value);
       incrementQuestionsAnswered(1);
       hideAnswer();
@@ -80,7 +77,7 @@ export default function LargeAnswer({
         <p className="fixed bottom-32 right-20">{timeRemaining}</p>
       ) : (
         <button
-          className="fixed bottom-20 bg-jeopardy-blue rounded-md"
+          className="fixed bottom-20 bg-jeopardy-blue rounded-md p-4"
           onClick={handleClick}
         >
           Okay

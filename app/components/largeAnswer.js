@@ -77,7 +77,7 @@ export default function LargeAnswer({
         <p className="fixed bottom-32 right-20">{timeRemaining}</p>
       ) : (
         <button
-          className="fixed bottom-20 bg-jeopardy-blue rounded-md p-4"
+          className="fixed bottom-20 bg-jeopardy-blue rounded-md p-2"
           onClick={handleClick}
         >
           Okay

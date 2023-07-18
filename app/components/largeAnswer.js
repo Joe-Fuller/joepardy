@@ -11,10 +11,18 @@ export default function LargeAnswer({
   const [guess, setGuess] = useState("");
   const [timeRemaining, setTimeRemaining] = useState(15);
   const [timerActive, setTimerActive] = useState(false);
+  const [secondTimeRemaining, setSecondTimeRemaining] = useState(5);
+  const [secondTimerActive, setSecondTimerActive] = useState(false);
 
   useEffect(() => {
     startTimer();
   }, []);
+
+  useEffect(() => {
+    if (!timerActive && secondTimerActive) {
+      startSecondTimer();
+    }
+  }, [timerActive, timeRemaining, secondTimerActive]);
 
   const startTimer = () => {
     setTimerActive(true);
@@ -32,6 +40,26 @@ export default function LargeAnswer({
 
   const handleTimeOut = () => {
     adjustScore(-clue_value);
+    setSecondTimerActive(true);
+  };
+
+  const startSecondTimer = () => {
+    setSecondTimerActive(true);
+
+    const secondTimerId = setInterval(() => {
+      setSecondTimeRemaining((prevTimeRemaining) => prevTimeRemaining - 1);
+    }, 1000);
+
+    setTimeout(() => {
+      clearInterval(secondTimerId);
+      setSecondTimerActive(false);
+      handleSecondTimeOut();
+    }, 5000);
+  };
+
+  const handleSecondTimeOut = () => {
+    incrementQuestionsAnswered(1);
+    hideAnswer();
   };
 
   const checkGuess = (guessToCheck) => {
@@ -51,11 +79,6 @@ export default function LargeAnswer({
     }
   };
 
-  const handleClick = () => {
-    incrementQuestionsAnswered(1);
-    hideAnswer();
-  };
-
   return (
     <div className="fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center">
       <div className="bg-jeopardy-blue w-4/5 h-3/5 p-10 flex flex-col items-center justify-center text-7xl">
@@ -73,16 +96,10 @@ export default function LargeAnswer({
         // onKeyDown={handleKeyDown}
         autoFocus
       />
-      {timerActive ? (
-        <p className="fixed bottom-32 right-20">{timeRemaining}</p>
-      ) : (
-        <button
-          className="fixed bottom-20 bg-jeopardy-blue rounded-md p-2"
-          onClick={handleClick}
-        >
-          Okay
-        </button>
-      )}
+
+      <p className="fixed bottom-32 right-20">
+        {timerActive ? timeRemaining : secondTimeRemaining}
+      </p>
     </div>
   );
 }

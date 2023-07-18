@@ -16,7 +16,7 @@ export default function JeopardyBoard({
               // If questions is empty, return a placeholder or loading state
               return (
                 <div
-                  className="w-40 h-24 bg-blue-500 text-white flex items-center justify-center"
+                  className="w-40 h-24 bg-jeopardy-blue text-jeopardy-yellow flex items-center justify-center"
                   key={rowIndex}
                 >
                   Loading...
@@ -26,7 +26,7 @@ export default function JeopardyBoard({
               // Otherwise, check if it's the first row (category) or other rows (clue_value)
               return (
                 <div
-                  className="w-40 h-24 bg-blue-500 text-white text-center flex items-center justify-center"
+                  className="w-40 h-24 bg-jeopardy-blue text-jeopardy-yellow text-center flex items-center justify-center"
                   key={String(colIndex) + rowIndex}
                 >
                   {rowIndex === 0 ? (

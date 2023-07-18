@@ -30,7 +30,7 @@ export default function LargeAnswer({
 
   return (
     <div className="fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center">
-      <div className="bg-blue-700 w-4/5 h-3/5 p-40 flex flex-col items-center justify-center text-5xl">
+      <div className="bg-jeopardy-blue w-4/5 h-3/5 p-40 flex flex-col items-center justify-center text-5xl">
         {answer}
       </div>
       <input

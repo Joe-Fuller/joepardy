@@ -40,7 +40,7 @@ export default function LargeAnswer({
           setGuess(e.target.value);
           checkGuess(e.target.value);
         }}
-        onKeyDown={handleKeyDown}
+        // onKeyDown={handleKeyDown}
         autoFocus
       />
     </div>

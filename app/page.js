@@ -26,7 +26,6 @@ export default function Home() {
   };
 
   const incrementQuestionsAnswered = () => {
-    console.log(questionsAnswered);
     setQuestionsAnswered(questionsAnswered + 1);
     if ((questionsAnswered + 1) % 30 === 0) {
       resetQuestions();

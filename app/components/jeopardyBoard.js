@@ -7,7 +7,6 @@ export default function JeopardyBoard({
   incrementQuestionsAnswered,
   round,
 }) {
-  console.log("Jeopardy Board Questions: ", questions);
   return (
     <div className="grid grid-cols-6 gap-4 p-4">
       {Array.from({ length: 6 }, (_, colIndex) => (

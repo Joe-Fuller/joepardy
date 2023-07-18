@@ -5,9 +5,12 @@ export default function AnswerTile({
   questionObject,
   adjustScore,
   incrementQuestionsAnswered,
+  round,
+  row,
 }) {
   const [showAnswer, setShowAnswer] = useState(false);
   const [questionAnswered, setQuestionAnswered] = useState(false);
+  const value = row * round * 200;
 
   const hideAnswer = () => {
     setQuestionAnswered(true);
@@ -31,7 +34,7 @@ export default function AnswerTile({
         <LargeAnswer
           answer={questionObject.answer}
           question={questionObject.question}
-          clue_value={questionObject.clue_value}
+          clue_value={value}
           adjustScore={adjustScore}
           hideAnswer={hideAnswer}
           incrementQuestionsAnswered={incrementQuestionsAnswered}
@@ -39,7 +42,7 @@ export default function AnswerTile({
       ) : questionAnswered ? (
         ""
       ) : (
-        "$" + questionObject.clue_value
+        "$" + value
       )}
     </div>
   );

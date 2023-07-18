@@ -5,6 +5,7 @@ export default function JeopardyBoard({
   questions,
   adjustScore,
   incrementQuestionsAnswered,
+  round,
 }) {
   console.log("Jeopardy Board Questions: ", questions);
   return (
@@ -34,8 +35,10 @@ export default function JeopardyBoard({
                   ) : (
                     <AnswerTile
                       questionObject={questions[colIndex][rowIndex - 1]}
+                      row={rowIndex}
                       adjustScore={adjustScore}
                       incrementQuestionsAnswered={incrementQuestionsAnswered}
+                      round={round}
                     ></AnswerTile>
                   )}
                 </div>

@@ -8,6 +8,7 @@ export default function Home() {
   const [questions, setQuestions] = useState([]);
   const [score, setScore] = useState(0);
   const [questionsAnswered, setQuestionsAnswered] = useState(0);
+  const [round, setRound] = useState(0);
 
   useEffect(() => {
     resetQuestions();
@@ -21,6 +22,7 @@ export default function Home() {
     getQuestions().then((data) => {
       setQuestions(data);
     });
+    incrementRound();
   };
 
   const incrementQuestionsAnswered = () => {
@@ -31,12 +33,17 @@ export default function Home() {
     }
   };
 
+  const incrementRound = () => {
+    setRound(round + 1);
+  };
+
   return (
     <main className="font-jeopardy">
       <JeopardyBoard
         questions={questions}
         adjustScore={adjustScore}
         incrementQuestionsAnswered={incrementQuestionsAnswered}
+        round={round}
       ></JeopardyBoard>
 
       <p className="mx-20 my-20 text-5xl">Score: {score}</p>

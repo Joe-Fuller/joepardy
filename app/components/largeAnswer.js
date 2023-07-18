@@ -10,7 +10,7 @@ export default function LargeAnswer({
 }) {
   const [guess, setGuess] = useState("");
   const [timeRemaining, setTimeRemaining] = useState(15);
-  const [timerActive, setTimerActive] = useState(false);
+  const [timerActive, setTimerActive] = useState(true);
   const [secondTimeRemaining, setSecondTimeRemaining] = useState(5);
   const [secondTimerActive, setSecondTimerActive] = useState(false);
 
@@ -19,7 +19,7 @@ export default function LargeAnswer({
   }, []);
 
   useEffect(() => {
-    if (!timerActive && secondTimerActive) {
+    if (!timerActive && !secondTimerActive) {
       startSecondTimer();
     }
   }, [timerActive, timeRemaining, secondTimerActive]);
@@ -40,7 +40,7 @@ export default function LargeAnswer({
 
   const handleTimeOut = () => {
     adjustScore(-clue_value);
-    setSecondTimerActive(true);
+    startSecondTimer();
   };
 
   const startSecondTimer = () => {
@@ -67,7 +67,7 @@ export default function LargeAnswer({
       guessToCheck.toLowerCase().trim() === question.toLowerCase().trim() &&
       timerActive
     ) {
-      adjustScore(clue_value);
+      adjustScore(2 * clue_value);
       incrementQuestionsAnswered(1);
       hideAnswer();
     }

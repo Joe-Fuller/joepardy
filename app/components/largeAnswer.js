@@ -38,6 +38,7 @@ export default function LargeAnswer({
         value={guess}
         onChange={(e) => setGuess(e.target.value)}
         onKeyDown={handleKeyDown}
+        autoFocus
       />
     </div>
   );

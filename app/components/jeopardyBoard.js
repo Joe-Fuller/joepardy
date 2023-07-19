@@ -6,6 +6,7 @@ export default function JeopardyBoard({
   adjustScore,
   incrementQuestionsAnswered,
   round,
+  score,
 }) {
   const [dailyDoubleSquares, setDailyDoubleSquares] = useState(null);
 
@@ -84,6 +85,7 @@ export default function JeopardyBoard({
                         [rowIndex, colIndex + 1],
                         dailyDoubleSquares
                       )}
+                      score={score}
                     ></AnswerTile>
                   )}
                 </div>

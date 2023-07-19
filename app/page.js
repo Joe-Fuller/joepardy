@@ -54,6 +54,7 @@ export default function Home() {
         adjustScore={adjustScore}
         incrementQuestionsAnswered={incrementQuestionsAnswered}
         round={round}
+        score={score}
       ></JeopardyBoard>
 
       <div className="flex items-center mx-20 my-20 text-5xl">

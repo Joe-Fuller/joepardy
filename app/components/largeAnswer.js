@@ -9,6 +9,8 @@ export default function LargeAnswer({
   hideAnswer,
   incrementQuestionsAnswered,
   isDailyDouble,
+  score,
+  round,
 }) {
   const [guess, setGuess] = useState("");
   const [timeRemaining, setTimeRemaining] = useState(15);
@@ -101,8 +103,13 @@ export default function LargeAnswer({
   };
 
   const submitDailyDoubleBet = () => {
-    setIsGettingDailyDoubleAmount(false);
-    startTimer();
+    if (
+      0 <= dailyDoubleBet &&
+      dailyDoubleBet <= Math.max(score, 1000 * round)
+    ) {
+      setIsGettingDailyDoubleAmount(false);
+      startTimer();
+    }
   };
 
   return isVisible ? (
@@ -114,7 +121,10 @@ export default function LargeAnswer({
           </div>
           <div className="flex items-center justify-center flex-grow">
             {isGettingDailyDoubleAmount
-              ? "Enter your bet"
+              ? `Enter your bet. You can bet up to $${Math.max(
+                  score,
+                  1000 * round
+                ).toLocaleString("number")}`
               : answer.replace(/\\/g, "")}
           </div>
         </div>

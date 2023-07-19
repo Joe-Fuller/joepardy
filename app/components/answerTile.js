@@ -8,6 +8,7 @@ export default function AnswerTile({
   round,
   row,
   isDailyDouble,
+  score,
 }) {
   const [showAnswer, setShowAnswer] = useState(false);
   const [questionAnswered, setQuestionAnswered] = useState(false);
@@ -40,6 +41,8 @@ export default function AnswerTile({
         hideAnswer={hideAnswer}
         incrementQuestionsAnswered={incrementQuestionsAnswered}
         isDailyDouble={isDailyDouble}
+        score={score}
+        round={round}
       ></LargeAnswer>
       {questionAnswered ? "" : "$" + value}
     </div>

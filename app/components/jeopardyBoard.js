@@ -31,7 +31,7 @@ export default function JeopardyBoard({
                 >
                   {rowIndex === 0 ? (
                     <p className="flex items-center justify-center text-3xl min-w-min min-h-min">
-                      {questions[colIndex][0].category}
+                      {questions[colIndex][0].category.replace(/\\/g, "")}
                     </p>
                   ) : (
                     <AnswerTile

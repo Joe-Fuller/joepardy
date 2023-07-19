@@ -47,9 +47,10 @@ export default function LargeAnswer({
       guessToCheck.toLowerCase().trim() === question.toLowerCase().trim() &&
       timerActive
     ) {
-      adjustScore(2 * clue_value);
+      adjustScore(clue_value);
       incrementQuestionsAnswered(1);
       hideAnswer();
+      setIsVisible(false);
     }
   };
 

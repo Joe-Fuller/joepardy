@@ -15,7 +15,7 @@ export default function Home() {
   }, []);
 
   const adjustScore = (adjustment) => {
-    setScore(score + parseInt(adjustment));
+    setScore((prevScore) => prevScore + parseInt(adjustment));
   };
 
   const resetQuestions = () => {

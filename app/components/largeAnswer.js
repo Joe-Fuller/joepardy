@@ -59,7 +59,6 @@ export default function LargeAnswer({
     adjustScore(isDailyDouble ? -dailyDoubleBet : -clue_value);
     incrementQuestionsAnswered(1);
     setTimerActive(false);
-    hideAnswer();
   };
 
   const checkGuess = (guessToCheck) => {

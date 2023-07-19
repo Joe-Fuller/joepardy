@@ -87,7 +87,7 @@ export default function LargeAnswer({
     <div className="fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center">
       {timerActive ? (
         <div className="bg-jeopardy-blue w-4/5 h-3/5 p-10 flex flex-col items-center justify-center text-7xl">
-          {answer}
+          {answer.replace(/\\/g, "")}
         </div>
       ) : (
         <div

@@ -45,7 +45,9 @@ export default function Home() {
         round={round}
       ></JeopardyBoard>
 
-      <p className="mx-20 my-20 text-5xl">Score: ${score}</p>
+      <p className="mx-20 my-20 text-5xl">
+        Score: {score < 0 ? "-" : ""}${Math.abs(score)}
+      </p>
     </main>
   );
 }

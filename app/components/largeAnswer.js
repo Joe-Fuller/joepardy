@@ -14,6 +14,9 @@ export default function LargeAnswer({
   const [timeRemaining, setTimeRemaining] = useState(15);
   const [timerActive, setTimerActive] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isGettingDailyDoubleAmount, setIsGettingDailyDoubleAmount] =
+    useState(isDailyDouble);
+  const [dailyDoubleBet, setDailyDoubleBet] = useState(null);
   const timerIdRef = useRef(null);
 
   useEffect(() => {
@@ -21,7 +24,10 @@ export default function LargeAnswer({
   }, [showAnswer]);
 
   useEffect(() => {
-    if (isVisible) {
+    if (isVisible && isDailyDouble) {
+      setTimerActive(true);
+      setIsGettingDailyDoubleAmount(true);
+    } else if (isVisible) {
       startTimer();
     } else {
       pauseTimer();
@@ -48,7 +54,7 @@ export default function LargeAnswer({
   };
 
   const handleTimeOut = () => {
-    adjustScore(-clue_value);
+    adjustScore(isDailyDouble ? -dailyDoubleBet : -clue_value);
     incrementQuestionsAnswered(1);
     setTimerActive(false);
   };
@@ -67,7 +73,7 @@ export default function LargeAnswer({
     const formattedQuestion = wordsInQuestion.join("");
 
     if (formattedGuess === formattedQuestion && timerActive) {
-      adjustScore(clue_value);
+      adjustScore(isDailyDouble ? dailyDoubleBet : clue_value);
       incrementQuestionsAnswered(1);
       hideAnswer();
       setIsVisible(false);
@@ -85,6 +91,20 @@ export default function LargeAnswer({
     handleTimeOut();
   };
 
+  const handleChange = (e) => {
+    if (isGettingDailyDoubleAmount) {
+      setDailyDoubleBet(e.target.value);
+    } else {
+      setGuess(e.target.value);
+      checkGuess(e.target.value);
+    }
+  };
+
+  const submitDailyDoubleBet = () => {
+    setIsGettingDailyDoubleAmount(false);
+    startTimer();
+  };
+
   return isVisible ? (
     <div className="fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center">
       {timerActive ? (
@@ -93,7 +113,9 @@ export default function LargeAnswer({
             {isDailyDouble ? "Daily Double" : ""}
           </div>
           <div className="flex items-center justify-center flex-grow">
-            {answer.replace(/\\/g, "")}
+            {isGettingDailyDoubleAmount
+              ? "Enter your bet"
+              : answer.replace(/\\/g, "")}
           </div>
         </div>
       ) : (
@@ -107,11 +129,10 @@ export default function LargeAnswer({
       <input
         className="mt-4 px-4 py-2 rounded-md border border-gray-400 focus:outline-none text-black"
         type="text"
-        placeholder="Guess"
-        value={guess}
+        placeholder={isGettingDailyDoubleAmount ? "Bet" : " Guess"}
+        value={isGettingDailyDoubleAmount ? dailyDoubleBet || "" : guess}
         onChange={(e) => {
-          setGuess(e.target.value);
-          checkGuess(e.target.value);
+          handleChange(e);
         }}
         autoFocus
       />
@@ -122,9 +143,11 @@ export default function LargeAnswer({
       {timerActive ? (
         <button
           className="fixed bottom-16 bg-jeopardy-blue p-2 rounded-lg"
-          onClick={skipQuestion}
+          onClick={
+            isGettingDailyDoubleAmount ? submitDailyDoubleBet : skipQuestion
+          }
         >
-          Skip
+          {isGettingDailyDoubleAmount ? "Bet" : "Skip"}
         </button>
       ) : null}
     </div>

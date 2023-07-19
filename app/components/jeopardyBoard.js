@@ -36,6 +36,8 @@ export default function JeopardyBoard({
     const pair1 = pairs[index1];
     const pair2 = pairs[index2];
 
+    console.log(pair1, pair2);
+
     return [pair1, pair2];
   };
 

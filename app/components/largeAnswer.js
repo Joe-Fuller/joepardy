@@ -18,7 +18,7 @@ export default function LargeAnswer({
   const [isVisible, setIsVisible] = useState(false);
   const [isGettingDailyDoubleAmount, setIsGettingDailyDoubleAmount] =
     useState(isDailyDouble);
-  const [dailyDoubleBet, setDailyDoubleBet] = useState(null);
+  const [dailyDoubleBet, setDailyDoubleBet] = useState("");
   const timerIdRef = useRef(null);
 
   useEffect(() => {
@@ -105,6 +105,7 @@ export default function LargeAnswer({
 
   const submitDailyDoubleBet = () => {
     if (
+      dailyDoubleBet !== "" &&
       0 <= dailyDoubleBet &&
       dailyDoubleBet <= Math.max(score, 1000 * round)
     ) {

@@ -62,17 +62,8 @@ export default function LargeAnswer({
   };
 
   const checkGuess = (guessToCheck) => {
-    const wordsInGuess = guessToCheck.toLowerCase().trim().split(" ");
-    if (["a", "an", "the"].includes(wordsInGuess[0])) {
-      wordsInGuess.shift();
-    }
-    const formattedGuess = wordsInGuess.join("");
-
-    const wordsInQuestion = question.toLowerCase().trim().split(" ");
-    if (["a", "an", "the"].includes(wordsInQuestion[0])) {
-      wordsInQuestion.shift();
-    }
-    const formattedQuestion = wordsInQuestion.join("");
+    const formattedGuess = normaliseString(guessToCheck);
+    const formattedQuestion = normaliseString(question);
 
     if (formattedGuess === formattedQuestion && timerActive) {
       adjustScore(isDailyDouble ? dailyDoubleBet : clue_value);
@@ -111,6 +102,27 @@ export default function LargeAnswer({
       setIsGettingDailyDoubleAmount(false);
       startTimer();
     }
+  };
+
+  const normaliseString = (inputString) => {
+    // Remove leading articles (a, an, the) and split the string into words
+    const words = inputString
+      .replace(/^\s*(a|an|the)\s+/i, "")
+      .trim()
+      .split(/\s+/);
+
+    // Concatenate the remaining words and remove spaces, commas, etc., and convert to lowercase
+    const lettersOnly = words
+      .join("")
+      .replace(/[^a-zA-Z]/g, "")
+      .toLowerCase();
+
+    // Remove diacritical marks (accents) from the letters
+    const unaccentedLetters = lettersOnly
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+
+    return unaccentedLetters;
   };
 
   return isVisible ? (

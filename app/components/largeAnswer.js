@@ -52,10 +52,19 @@ export default function LargeAnswer({
   };
 
   const checkGuess = (guessToCheck) => {
-    if (
-      guessToCheck.toLowerCase().trim() === question.toLowerCase().trim() &&
-      timerActive
-    ) {
+    const wordsInGuess = guessToCheck.toLowerCase().trim().split(" ");
+    if (["a", "an", "the"].includes(wordsInGuess[0])) {
+      wordsInGuess.shift();
+    }
+    const formattedGuess = wordsInGuess.join("");
+
+    const wordsInQuestion = question.toLowerCase().trim().split(" ");
+    if (["a", "an", "the"].includes(wordsInQuestion[0])) {
+      wordsInQuestion.shift();
+    }
+    const formattedQuestion = wordsInQuestion.join("");
+
+    if (formattedGuess === formattedQuestion && timerActive) {
       adjustScore(clue_value);
       incrementQuestionsAnswered(1);
       hideAnswer();

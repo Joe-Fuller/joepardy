@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function LargeAnswer({
   answer,
@@ -11,35 +11,44 @@ export default function LargeAnswer({
 }) {
   const [guess, setGuess] = useState("");
   const [timeRemaining, setTimeRemaining] = useState(15);
-  const [timerActive, setTimerActive] = useState(true);
+  const [timerActive, setTimerActive] = useState(false); // Start timer as inactive
   const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    if (isVisible) {
-      startTimer();
-    }
-  }, [isVisible]);
+  const timerIdRef = useRef(null); // Reference to the timer ID
 
   useEffect(() => {
     setIsVisible(showAnswer);
   }, [showAnswer]);
 
+  useEffect(() => {
+    if (isVisible) {
+      startTimer();
+    } else {
+      pauseTimer();
+    }
+  }, [isVisible]);
+
+  useEffect(() => {
+    if (timeRemaining === 0 && timerActive) {
+      handleTimeOut();
+    }
+  }, [timeRemaining, timerActive]);
+
   const startTimer = () => {
     setTimerActive(true);
-
-    const timerId = setInterval(() => {
+    setTimeRemaining(15);
+    timerIdRef.current = setInterval(() => {
       setTimeRemaining((prevTimeRemaining) => prevTimeRemaining - 1);
     }, 1000);
+  };
 
-    setTimeout(() => {
-      clearInterval(timerId);
-      setTimerActive(false);
-      handleTimeOut();
-    }, 15000);
+  const pauseTimer = () => {
+    clearInterval(timerIdRef.current);
+    setTimerActive(false);
   };
 
   const handleTimeOut = () => {
     adjustScore(-clue_value);
+    setTimerActive(false);
   };
 
   const checkGuess = (guessToCheck) => {
@@ -51,6 +60,7 @@ export default function LargeAnswer({
       incrementQuestionsAnswered(1);
       hideAnswer();
       setIsVisible(false);
+      pauseTimer();
     }
   };
 
@@ -61,8 +71,13 @@ export default function LargeAnswer({
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      checkGuess();
+      checkGuess(guess);
     }
+  };
+
+  const handleInputBlur = () => {
+    // Pause the timer when the input field loses focus
+    pauseTimer();
   };
 
   return isVisible ? (
@@ -88,7 +103,7 @@ export default function LargeAnswer({
           setGuess(e.target.value);
           checkGuess(e.target.value);
         }}
-        // onKeyDown={handleKeyDown}
+        onKeyDown={handleKeyDown}
         autoFocus
       />
 

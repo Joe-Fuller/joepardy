@@ -42,7 +42,7 @@ export default function Home() {
       scoreString += "-";
     }
     scoreString += "$";
-    scoreString += Math.abs(score);
+    scoreString += Math.abs(score).toLocaleString();
 
     return scoreString;
   };

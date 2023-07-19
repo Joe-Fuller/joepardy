@@ -36,6 +36,17 @@ export default function Home() {
     setRound(round + 1);
   };
 
+  const formatScore = () => {
+    let scoreString = "Score: ";
+    if (score < 0) {
+      scoreString += "-";
+    }
+    scoreString += "$";
+    scoreString += Math.abs(score);
+
+    return scoreString;
+  };
+
   return (
     <main className="font-jeopardy">
       <JeopardyBoard
@@ -45,9 +56,7 @@ export default function Home() {
         round={round}
       ></JeopardyBoard>
 
-      <p className="mx-20 my-20 text-5xl">
-        Score: {score < 0 ? "-" : ""}${Math.abs(score)}
-      </p>
+      <p className="mx-20 my-20 text-5xl">{formatScore()}</p>
     </main>
   );
 }

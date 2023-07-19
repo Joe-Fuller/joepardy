@@ -78,15 +78,9 @@ export default function LargeAnswer({
     setIsVisible(false);
   };
 
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      checkGuess(guess);
-    }
-  };
-
-  const handleInputBlur = () => {
-    // Pause the timer when the input field loses focus
+  const skipQuestion = () => {
     pauseTimer();
+    handleTimeOut();
   };
 
   return isVisible ? (
@@ -112,13 +106,20 @@ export default function LargeAnswer({
           setGuess(e.target.value);
           checkGuess(e.target.value);
         }}
-        onKeyDown={handleKeyDown}
         autoFocus
       />
 
       <p className="fixed bottom-32 right-20">
         {timerActive ? timeRemaining : ""}
       </p>
+      {timerActive ? (
+        <button
+          className="fixed bottom-16 bg-jeopardy-blue p-2 rounded-lg"
+          onClick={skipQuestion}
+        >
+          Skip
+        </button>
+      ) : null}
     </div>
   ) : null;
 }

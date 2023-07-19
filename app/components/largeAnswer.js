@@ -11,9 +11,9 @@ export default function LargeAnswer({
 }) {
   const [guess, setGuess] = useState("");
   const [timeRemaining, setTimeRemaining] = useState(15);
-  const [timerActive, setTimerActive] = useState(false); // Start timer as inactive
+  const [timerActive, setTimerActive] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const timerIdRef = useRef(null); // Reference to the timer ID
+  const timerIdRef = useRef(null);
 
   useEffect(() => {
     setIsVisible(showAnswer);
@@ -48,6 +48,7 @@ export default function LargeAnswer({
 
   const handleTimeOut = () => {
     adjustScore(-clue_value);
+    incrementQuestionsAnswered(1);
     setTimerActive(false);
   };
 

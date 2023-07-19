@@ -37,7 +37,7 @@ export default function Home() {
   };
 
   const formatScore = () => {
-    let scoreString = "Score: ";
+    let scoreString = "";
     if (score < 0) {
       scoreString += "-";
     }
@@ -56,7 +56,12 @@ export default function Home() {
         round={round}
       ></JeopardyBoard>
 
-      <p className="mx-20 my-20 text-5xl">{formatScore()}</p>
+      <div className="flex items-center mx-20 my-20 text-5xl">
+        <p>Score: </p>
+        <p className={`${score < 0 ? "text-jeopardy-red" : "text-white"} ml-4`}>
+          {formatScore()}
+        </p>
+      </div>
     </main>
   );
 }

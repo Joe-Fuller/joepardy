@@ -17,6 +17,7 @@ module.exports = {
       jeopardy: {
         blue: "#010a78",
         yellow: "#d7a04b",
+        red: "#c70c2b",
       },
     },
     fontFamily: {

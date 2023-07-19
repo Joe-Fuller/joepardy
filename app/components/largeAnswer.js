@@ -100,7 +100,7 @@ export default function LargeAnswer({
           className="bg-jeopardy-blue w-4/5 h-3/5 p-10 flex flex-col items-center justify-center text-7xl"
           onClick={dismissQuestion}
         >
-          {question}
+          {question.replace(/\\/g, "")}
         </div>
       )}
       <input

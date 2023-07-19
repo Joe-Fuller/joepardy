@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AnswerTile from "./answerTile";
 
 export default function JeopardyBoard({
@@ -7,6 +7,44 @@ export default function JeopardyBoard({
   incrementQuestionsAnswered,
   round,
 }) {
+  const [dailyDoubleSquares, setDailyDoubleSquares] = useState(null);
+
+  useEffect(() => {
+    setDailyDoubleSquares(getDailyDoubleSquares());
+  }, []);
+
+  const getRandomNumber = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+
+  const getDailyDoubleSquares = () => {
+    const pairs = [];
+    for (let i = 1; i <= 5; i++) {
+      for (let j = 1; j <= 6; j++) {
+        pairs.push([i, j]);
+      }
+    }
+
+    const index1 = getRandomNumber(0, pairs.length - 1);
+    let index2 = getRandomNumber(0, pairs.length - 1);
+
+    // Ensure index2 is different from index1
+    while (index2 === index1) {
+      index2 = getRandomNumber(0, pairs.length - 1);
+    }
+
+    const pair1 = pairs[index1];
+    const pair2 = pairs[index2];
+
+    return [pair1, pair2];
+  };
+
+  function isPairInArray(pairToCheck, arrayOfPairs) {
+    return arrayOfPairs.some(
+      (pair) => pair[0] === pairToCheck[0] && pair[1] === pairToCheck[1]
+    );
+  }
+
   return (
     <div className="grid grid-cols-6 gap-4 p-4">
       {Array.from({ length: 6 }, (_, colIndex) => (
@@ -40,6 +78,10 @@ export default function JeopardyBoard({
                       adjustScore={adjustScore}
                       incrementQuestionsAnswered={incrementQuestionsAnswered}
                       round={round}
+                      isDailyDouble={isPairInArray(
+                        [rowIndex, colIndex + 1],
+                        dailyDoubleSquares
+                      )}
                     ></AnswerTile>
                   )}
                 </div>

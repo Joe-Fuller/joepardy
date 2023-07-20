@@ -114,7 +114,7 @@ export default function LargeAnswer({
     // Concatenate the remaining words and remove spaces, commas, etc., and convert to lowercase
     const lettersOnly = words
       .join("")
-      .replace(/[^a-zA-Z]/g, "")
+      .replace(/[^a-zA-Z0-9]/g, "")
       .toLowerCase();
 
     // Remove diacritical marks (accents) from the letters
